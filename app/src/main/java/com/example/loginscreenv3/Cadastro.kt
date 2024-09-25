@@ -42,6 +42,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.loginscreenv3.ui.theme.LoginScreenV3Theme
 import org.w3c.dom.Text
 
+
 //class Cadastro : ComponentActivity() {
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -57,6 +58,8 @@ import org.w3c.dom.Text
 
 @Composable
 fun CadastroScreen(navController: NavController){
+
+    val context = LocalContext.current
 
     var primeiroNome by remember {mutableStateOf("")}
     var ultimoNome by remember {mutableStateOf("")}
@@ -110,7 +113,11 @@ fun CadastroScreen(navController: NavController){
         }
 
         Row(modifier = Modifier.fillMaxWidth().padding(0.dp,220.dp,0.dp,0.dp), verticalAlignment = Alignment.Bottom){
-            Box{Button(modifier = Modifier.fillMaxWidth(),onClick = {navController.popBackStack()}){Text("Cadastrar")}}
+            Box{Button(modifier = Modifier.fillMaxWidth(),
+                onClick = {Toast.makeText(context, "Cadastrado com sucesso.",
+                    Toast.LENGTH_SHORT).show()
+                    navController.popBackStack()})
+                {Text("Cadastrar")}}
         }
     }
 

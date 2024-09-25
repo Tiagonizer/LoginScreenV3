@@ -41,7 +41,6 @@ import com.example.loginscreenv3.ui.theme.LoginScreenV3Theme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             LoginScreenV3Theme {
                 MyApp()

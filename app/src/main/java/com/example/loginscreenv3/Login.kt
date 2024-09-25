@@ -123,7 +123,7 @@ fun LoginScreen(navController: NavController) {
                 }
 
                 if (textFieldSenha != senha) {
-                    Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Senha Incorreta.", Toast.LENGTH_SHORT).show()
                     return@Button
                 }
 
