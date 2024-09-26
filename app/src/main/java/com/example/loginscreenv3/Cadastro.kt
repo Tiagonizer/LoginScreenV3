@@ -90,73 +90,82 @@ fun CadastroScreen(navController: NavController){
                     onValueChange = { senha = it },
                     label = { Text("Senha") },
                     modifier = Modifier.fillMaxWidth()
+                        .padding(0.dp,2.dp,0.dp,0.dp)
                 )
                 OutlinedTextField(
                     value = senhaConfirm,
                     onValueChange = { senhaConfirm = it },
                     label = { Text("Confirma senha") },
                     modifier = Modifier.fillMaxWidth()
+                        .padding(0.dp,2.dp,0.dp,0.dp)
                 )
                 OutlinedTextField(
                     value = primeiroNome,
                     onValueChange = { primeiroNome = it },
                     label = { Text("Primeiro nome") },
                     modifier = Modifier.fillMaxWidth()
+                        .padding(0.dp,2.dp,0.dp,0.dp)
                 )
                 OutlinedTextField(
                     value = ultimoNome,
                     onValueChange = { ultimoNome = it },
                     label = { Text("Ultimo nome") },
                     modifier = Modifier.fillMaxWidth()
+                        .padding(0.dp,2.dp,0.dp,0.dp)
                 )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    OutlinedTextField(value = apelido,
+                        onValueChange = { apelido = it },
+                        label = { Text("Apelido") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(0.dp,2.dp,10.dp,0.dp)
+                    )
+                    OutlinedTextField(value = idade,
+                        onValueChange = { idade = it },
+                        label = { Text("Idade") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(10.dp,2.dp,0.dp,0.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    OutlinedTextField(value = altura,
+                        onValueChange = { altura = it },
+                        label = { Text("Altura") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(0.dp,2.dp,10.dp,0.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+
+                    OutlinedTextField(value = peso,
+                        onValueChange = { peso = it },
+                        label = { Text("Peso") },
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(10.dp,2.dp,0.dp,0.dp),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                }
             }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                OutlinedTextField(value = apelido,
-                    onValueChange = { apelido = it },
-                    label = { Text("Apelido") },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .padding(10.dp)
-                )
-                OutlinedTextField(value = altura,
-                    onValueChange = { altura = it },
-                    label = { Text("Altura") },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-            }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                OutlinedTextField(value = peso,
-                    onValueChange = { peso = it },
-                    label = { Text("Peso") },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-                OutlinedTextField(value = idade,
-                    onValueChange = { idade = it },
-                    label = { Text("Idade") },
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-            }
+
+
 
             Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
                 Button(modifier = Modifier
