@@ -39,14 +39,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.loginscreenv3.ui.theme.LoginScreenV3Theme
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun LoginScreen(navController: NavController) {
 
     val context = LocalContext.current
-
-    val usuario = "exemplo@gmail.com"
-    val senha = "123456"
 
     var textFieldUsuario by remember { mutableStateOf("") }
     var textFieldSenha by remember { mutableStateOf("") }
@@ -120,18 +118,29 @@ fun LoginScreen(navController: NavController) {
             //    .padding(10.dp),
             //    contentAlignment = Alignment.Center) {
             Button(modifier = Modifier.padding(10.dp), onClick = {
+                var usuariodb = Usuario()
 
-                if (textFieldUsuario != usuario) {
-                    Toast.makeText(context, "Usuario incorreto.", Toast.LENGTH_SHORT).show()
-                    return@Button
-                }
+                usuariodb.validaUsuario(textFieldUsuario, textFieldSenha)
+                    .addOnCompleteListener { querySnapshot ->
+                        if (querySnapshot.isSuccessful) {
+                            var usuario = querySnapshot.result.toObject(Usuario::class.java)
+                            if (usuario != null) {
+                                if (textFieldUsuario == usuario.senha) {
+                                    Toast.makeText(
+                                        context,
+                                        "Usuario valido. " + usuario.email,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }else{
+                                    Toast.makeText(context,"Senha incorreta.",Toast.LENGTH_SHORT).show()
+                                }
+                            }else{
+                                Toast.makeText(context,"Usuario incorreto.",Toast.LENGTH_SHORT).show()
+                            }
 
-                if (textFieldSenha != senha) {
-                    Toast.makeText(context, "Senha Incorreta.", Toast.LENGTH_SHORT).show()
-                    return@Button
-                }
+                        }
+                    }
 
-                Toast.makeText(context, "Login bem sucedido.", Toast.LENGTH_SHORT).show()
 
 
 //                if (textFieldUsuario==usuario){
