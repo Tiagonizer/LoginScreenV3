@@ -186,15 +186,24 @@ fun CadastroScreen(navController: NavController) {
             Button(modifier = Modifier
                 .fillMaxWidth(), onClick = {
 
-                val usuario = Usuario(
-                    emailTextField,
-                    senhaTextField,
-                    primeiroNomeTextField,
-                    ultimoNomeTextField,
-                    apelidoTextField,
-                    alturaTextField,
-                    pesoTextField,
-                    idadeTextField)
+//                val usuario = Usuario(
+//                    emailTextField,
+//                    senhaTextField,
+//                    primeiroNomeTextField,
+//                    ultimoNomeTextField,
+//                    apelidoTextField,
+//                    alturaTextField,
+//                    pesoTextField,
+//                    idadeTextField)
+                val usuario = Usuario()
+                usuario.email = emailTextField
+                usuario.senha = senhaTextField
+                usuario.primeiroNome = primeiroNomeTextField
+                usuario.ultimoNome = ultimoNomeTextField
+                usuario.apelido = apelidoTextField
+                usuario.altura = alturaTextField.toDouble()
+                usuario.peso = pesoTextField.toDouble()
+                usuario.idade = idadeTextField.toInt()
 
                 var mensagem = true
 
@@ -217,51 +226,73 @@ fun CadastroScreen(navController: NavController) {
                         mensagem = false
                     }
 
-                    if (emailTextField.isNotEmpty()&&senhaTextField.isNotEmpty()&&primeiroNomeTextField.isNotEmpty()&&ultimoNomeTextField.isNotEmpty()&&alturaTextField.isNotEmpty()&&pesoTextField.isNotEmpty()&&idadeTextField.isNotEmpty()){
-                        usuario.cadastraUsuario()
+                    scope.launch(Dispatchers.Main){
+
                     }
+
 
                 }
 
                 scope.launch(Dispatchers.Main) {
-                    if (mensagem) {
-                        Toast.makeText(
-                            context, "Cadastrado com sucesso.", Toast.LENGTH_SHORT
-                        ).show()
-                        navController.popBackStack()
-                    } else if (senhaTextField != senhaConfirmTextField) {
-                        Toast.makeText(context, "As senhas não são iguais.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (emailTextField.isEmpty()) {
-                        Toast.makeText(
-                            context, "E-mail precisa estar preenchido.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (senhaTextField.isEmpty()) {
-                        Toast.makeText(
-                            context, "Senha precisa estar preenchido.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (primeiroNomeTextField.isEmpty()) {
-                        Toast.makeText(
-                            context,
-                            "Primeiro nome precisa estar preenchido.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (ultimoNomeTextField.isEmpty()) {
-                        Toast.makeText(
-                            context, "Ultimo nome precisa estar preenchido.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (alturaTextField.isEmpty()) {
-                        Toast.makeText(
-                            context, "Altura precisa estar preechido.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (pesoTextField.isEmpty()) {
-                        Toast.makeText(
-                            context, "Peso precisa estar preenchido.", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (idadeTextField.isEmpty()) {
-                        Toast.makeText(
-                            context, "Idade precisa estar preechido.", Toast.LENGTH_SHORT
-                        ).show()
+
+                    if (emailTextField.isNotEmpty()&&senhaTextField.isNotEmpty()&&primeiroNomeTextField.isNotEmpty()&&ultimoNomeTextField.isNotEmpty()&&alturaTextField.isNotEmpty()&&pesoTextField.isNotEmpty()&&idadeTextField.isNotEmpty()){
+                        usuario.validaUsuario(emailTextField, "").addOnCompleteListener() { querySnapshot ->
+                            val emailValidacao = querySnapshot.result.data
+
+                            if (emailValidacao == null) {
+                                usuario.cadastraUsuario()
+                            } else {
+                                mensagem = false
+                                Toast.makeText(
+                                    context, "Email já existe", Toast.LENGTH_SHORT
+                                ).show()
+
+                            }
+
+                            if (mensagem) {
+                                Toast.makeText(
+                                    context, "Cadastrado com sucesso.", Toast.LENGTH_SHORT
+                                ).show()
+                                navController.popBackStack()
+                            } else if (senhaTextField != senhaConfirmTextField) {
+                                Toast.makeText(context, "As senhas não são iguais.", Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (emailTextField.isEmpty()) {
+                                Toast.makeText(
+                                    context, "E-mail precisa estar preenchido.", Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (senhaTextField.isEmpty()) {
+                                Toast.makeText(
+                                    context, "Senha precisa estar preenchido.", Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (primeiroNomeTextField.isEmpty()) {
+                                Toast.makeText(
+                                    context,
+                                    "Primeiro nome precisa estar preenchido.", Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (ultimoNomeTextField.isEmpty()) {
+                                Toast.makeText(
+                                    context, "Ultimo nome precisa estar preenchido.", Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (alturaTextField.isEmpty()) {
+                                Toast.makeText(
+                                    context, "Altura precisa estar preechido.", Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (pesoTextField.isEmpty()) {
+                                Toast.makeText(
+                                    context, "Peso precisa estar preenchido.", Toast.LENGTH_SHORT
+                                ).show()
+                            } else if (idadeTextField.isEmpty()) {
+                                Toast.makeText(
+                                    context, "Idade precisa estar preechido.", Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                        }
+
                     }
+
+
 
                 }
 

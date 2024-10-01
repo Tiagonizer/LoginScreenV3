@@ -123,12 +123,12 @@ fun LoginScreen(navController: NavController) {
                 usuariodb.validaUsuario(textFieldUsuario, textFieldSenha)
                     .addOnCompleteListener { querySnapshot ->
                         if (querySnapshot.isSuccessful) {
-                            var usuario = querySnapshot.result.toObject(Usuario::class.java)
+                            var usuario = querySnapshot.result.data
                             if (usuario != null) {
-                                if (textFieldUsuario == usuario.senha) {
+                                if (textFieldSenha == usuario.get("senha")) {
                                     Toast.makeText(
                                         context,
-                                        "Usuario valido. " + usuario.email,
+                                        "Usuario valido. " + usuario.get("email"),
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }else{

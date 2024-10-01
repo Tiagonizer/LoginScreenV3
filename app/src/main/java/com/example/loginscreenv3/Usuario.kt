@@ -16,36 +16,44 @@ class Usuario {
     lateinit var primeiroNome: String
     lateinit var ultimoNome: String
     lateinit var apelido: String
-    var altura: Double = 0.0
-    var peso: Double = 0.0
-    var idade: Int = 0
-
-    constructor(email: String, senha: String, primeiroNome: String, ultimoNome: String, apelido: String, altura: String, peso: String, idade: String) {
-        this.email = email
-        this.senha = senha
-        this.primeiroNome = primeiroNome
-        this.ultimoNome = ultimoNome
-        this.apelido = apelido
-        try {
-            this.altura = altura.toDouble()
-            this.peso = peso.toDouble()
-            this.idade = idade.toInt()
-        } catch (e: NumberFormatException) {
-            this.altura = 0.0
-            this.peso = 0.0
-            this.idade = 0
-        }
-    }
-
-    constructor(){
-
-    }
+    lateinit var idade: Number
+    lateinit var altura: Number
+    lateinit var peso: Number
+//
+//    constructor(email: String, senha: String, primeiroNome: String, ultimoNome: String, apelido: String, altura: String, peso: String, idade: String) {
+//        this.email = email
+//        this.senha = senha
+//        this.primeiroNome = primeiroNome
+//        this.ultimoNome = ultimoNome
+//        this.apelido = apelido
+//        try {
+//            this.altura = altura.toDouble()
+//            this.peso = peso.toDouble()
+//            this.idade = idade.toInt()
+//        } catch (e: NumberFormatException) {
+//            this.altura = 0.0
+//            this.peso = 0.0
+//            this.idade = 0
+//        }
+//    }
 
     val db = FirebaseFirestore.getInstance()
 
     fun cadastraUsuario(){
 
-        db.collection("Logins").document(this.email).set(this).addOnCompleteListener{
+        var login= hashMapOf(
+            "email" to email,
+            "senha" to senha,
+            "primeiroNome" to primeiroNome,
+            "ultimoNome" to ultimoNome,
+            "apelido" to apelido,
+            "idade" to idade,
+            "altura" to altura,
+            "peso" to peso
+
+        )
+
+        db.collection("Logins").document(email).set(login).addOnCompleteListener{
 
         }.addOnFailureListener{
 
