@@ -207,68 +207,68 @@ fun CadastroScreen(navController: NavController) {
 
                 var mensagem = true
 
-                scope.launch(Dispatchers.IO) {
+                //scope.launch(Dispatchers.IO) {
                     if (senhaTextField != senhaConfirmTextField) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main) {
+                        //scope.launch(Dispatchers.Main) {
                             Toast.makeText(context, "As senhas não são iguais.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     } else if (emailTextField.isBlank()) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main) {
+                        //scope.launch(Dispatchers.Main) {
                             Toast.makeText(
                                 context, "E-mail precisa estar preenchido.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     } else if (senhaTextField.isBlank()) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main){
+                        //scope.launch(Dispatchers.Main){
                             Toast.makeText(
                                 context, "Senha precisa estar preenchido.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     } else if (primeiroNomeTextField.isBlank()) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main){
+                        //scope.launch(Dispatchers.Main){
                             Toast.makeText(
                                 context,
                                 "Primeiro nome precisa estar preenchido.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     } else if (ultimoNomeTextField.isBlank()) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main){
+                        //scope.launch(Dispatchers.Main){
                             Toast.makeText(
                                 context, "Ultimo nome precisa estar preenchido.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     } else if (alturaTextField.isBlank()) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main){
+                        //scope.launch(Dispatchers.Main){
                             Toast.makeText(
                                 context, "Altura precisa estar preechido.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     } else if (pesoTextField.isBlank()) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main){
+                        //scope.launch(Dispatchers.Main){
                             Toast.makeText(
                                 context, "Peso precisa estar preenchido.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     } else if (idadeTextField.isBlank()) {
                         mensagem = false
-                        scope.launch(Dispatchers.Main){
+                        //scope.launch(Dispatchers.Main){
                             Toast.makeText(
                                 context, "Idade precisa estar preechido.", Toast.LENGTH_SHORT
                             ).show()
-                        }
+                        //}
                     }
 
-                }
+                //}
 
-                scope.launch(Dispatchers.Main) {
+                //scope.launch(Dispatchers.Main) {
 
                     if (mensagem){
 
@@ -294,7 +294,7 @@ fun CadastroScreen(navController: NavController) {
 
 
 
-                }
+                //}
 
             })
             { Text("Cadastrar") }
