@@ -5,12 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,8 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 //class Cadastro : ComponentActivity() {
@@ -45,6 +49,10 @@ import kotlinx.coroutines.launch
 //    }
 //}
 
+object Genero {
+    const val masculino = "Masculino"
+    const val feminino = "Feminino"
+}
 
 @Composable
 fun CadastroScreen(navController: NavController) {
@@ -66,7 +74,7 @@ fun CadastroScreen(navController: NavController) {
     var idadeTextField by remember { mutableStateOf("") }
     var senhaTextField by remember { mutableStateOf("") }
     var senhaConfirmTextField by remember { mutableStateOf("") }
-
+    val seleçãoGenero = remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -127,6 +135,44 @@ fun CadastroScreen(navController: NavController) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    modifier = Modifier
+                        .padding(0.dp, 2.dp, 10.dp, 0.dp)
+                        .fillMaxWidth(0.40f),
+                    verticalAlignment = Alignment.CenterVertically
+                )
+                {
+                    RadioButton(modifier = Modifier.padding(),
+                        selected = seleçãoGenero.value == Genero.feminino,
+                        onClick = { seleçãoGenero.value == Genero.feminino }
+                    )
+                    Text(
+                        text = "Feminino",
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(38.dp, 2.dp, 0.dp, 0.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                )
+                {
+                    RadioButton(modifier = Modifier.padding(),
+                        selected = seleçãoGenero.value == Genero.masculino,
+                        onClick = { seleçãoGenero.value == Genero.masculino }
+                    )
+                    Text(
+                        text = "Masculino",
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 OutlinedTextField(
@@ -178,10 +224,6 @@ fun CadastroScreen(navController: NavController) {
             }
         }
 
-
-
-
-
         Row(modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.Bottom) {
             Button(modifier = Modifier
                 .fillMaxWidth(), onClick = {
@@ -201,78 +243,83 @@ fun CadastroScreen(navController: NavController) {
                 usuario.primeiroNome = primeiroNomeTextField
                 usuario.ultimoNome = ultimoNomeTextField
                 usuario.apelido = apelidoTextField
-                if(alturaTextField.isBlank()) usuario.altura = 0 else usuario.altura = alturaTextField.toDouble()
-                if(pesoTextField.isBlank()) usuario.peso = 0 else usuario.peso = pesoTextField.toDouble()
-                if (idadeTextField.isBlank()) usuario.idade = 0 else usuario.idade = idadeTextField.toInt()
+                if (alturaTextField.isBlank()) usuario.altura = 0 else usuario.altura =
+                    alturaTextField.toDouble()
+                if (pesoTextField.isBlank()) usuario.peso = 0 else usuario.peso =
+                    pesoTextField.toDouble()
+                if (idadeTextField.isBlank()) usuario.idade = 0 else usuario.idade =
+                    idadeTextField.toInt()
 
                 var mensagem = true
 
                 //scope.launch(Dispatchers.IO) {
-                    if (senhaTextField != senhaConfirmTextField) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main) {
-                            Toast.makeText(context, "As senhas não são iguais.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    } else if (emailTextField.isBlank()) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main) {
-                            Toast.makeText(
-                                context, "E-mail precisa estar preenchido.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    } else if (senhaTextField.isBlank()) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main){
-                            Toast.makeText(
-                                context, "Senha precisa estar preenchido.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    } else if (primeiroNomeTextField.isBlank()) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main){
-                            Toast.makeText(
-                                context,
-                                "Primeiro nome precisa estar preenchido.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    } else if (ultimoNomeTextField.isBlank()) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main){
-                            Toast.makeText(
-                                context, "Ultimo nome precisa estar preenchido.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    } else if (alturaTextField.isBlank()) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main){
-                            Toast.makeText(
-                                context, "Altura precisa estar preechido.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    } else if (pesoTextField.isBlank()) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main){
-                            Toast.makeText(
-                                context, "Peso precisa estar preenchido.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    } else if (idadeTextField.isBlank()) {
-                        mensagem = false
-                        //scope.launch(Dispatchers.Main){
-                            Toast.makeText(
-                                context, "Idade precisa estar preechido.", Toast.LENGTH_SHORT
-                            ).show()
-                        //}
-                    }
+                if (senhaTextField != senhaConfirmTextField) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main) {
+                    Toast.makeText(
+                        context, "As senhas não são iguais.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                } else if (emailTextField.isBlank()) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main) {
+                    Toast.makeText(
+                        context, "E-mail precisa estar preenchido.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                } else if (senhaTextField.isBlank()) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main){
+                    Toast.makeText(
+                        context, "Senha precisa estar preenchido.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                } else if (primeiroNomeTextField.isBlank()) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main){
+                    Toast.makeText(
+                        context,
+                        "Primeiro nome precisa estar preenchido.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                } else if (ultimoNomeTextField.isBlank()) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main){
+                    Toast.makeText(
+                        context, "Ultimo nome precisa estar preenchido.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                } else if (alturaTextField.isBlank()) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main){
+                    Toast.makeText(
+                        context, "Altura precisa estar preechido.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                } else if (pesoTextField.isBlank()) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main){
+                    Toast.makeText(
+                        context, "Peso precisa estar preenchido.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                } else if (idadeTextField.isBlank()) {
+                    mensagem = false
+                    //scope.launch(Dispatchers.Main){
+                    Toast.makeText(
+                        context, "Idade precisa estar preechido.", Toast.LENGTH_SHORT
+                    ).show()
+                    //}
+                }
 
                 //}
 
                 //scope.launch(Dispatchers.Main) {
 
-                    if (mensagem){
+                if (mensagem) {
 
-                        usuario.validaUsuario(emailTextField, "").addOnCompleteListener() { querySnapshot ->
+                    usuario.validaUsuario(emailTextField, "")
+                        .addOnCompleteListener() { querySnapshot ->
                             val emailValidacao = querySnapshot.result.data
 
                             if (emailValidacao != null) {
@@ -288,10 +335,10 @@ fun CadastroScreen(navController: NavController) {
                             ).show()
                             navController.popBackStack()
 
+
                         }
 
-                    }
-
+                }
 
 
                 //}
@@ -300,10 +347,7 @@ fun CadastroScreen(navController: NavController) {
             { Text("Cadastrar") }
         }
     }
-
-
 }
-
 
 @Preview(showBackground = true)
 @Composable

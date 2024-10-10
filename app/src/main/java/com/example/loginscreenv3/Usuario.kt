@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 
 class Usuario {
+
     lateinit var email: String
     lateinit var senha: String
     lateinit var primeiroNome: String
@@ -19,6 +20,8 @@ class Usuario {
     lateinit var idade: Number
     lateinit var altura: Number
     lateinit var peso: Number
+    lateinit var genero:String
+
 //
 //    constructor(email: String, senha: String, primeiroNome: String, ultimoNome: String, apelido: String, altura: String, peso: String, idade: String) {
 //        this.email = email
@@ -49,7 +52,8 @@ class Usuario {
             "apelido" to apelido,
             "idade" to idade,
             "altura" to altura,
-            "peso" to peso
+            "peso" to peso,
+            "genero" to genero
 
         )
 
