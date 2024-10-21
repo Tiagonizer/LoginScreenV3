@@ -91,10 +91,8 @@ fun DisplayAvatarScreen(navController: NavController) {
         // Botão de selecionar avatar
         Button(
             onClick = {
-                // Exemplo: Navegar para a tela principal passando o avatar selecionado
-                if (selectedAvatar != null) {
-                    navController.navigate("main_screen/${selectedAvatar}")
-                }
+                // Voltar à tela inicial, ignorando o avatar selecionado
+                navController.popBackStack() // Volta para a tela anterior
             },
             enabled = selectedAvatar != null
         ) {
@@ -106,11 +104,12 @@ fun DisplayAvatarScreen(navController: NavController) {
         // Botão de continuar sem selecionar avatar
         Button(
             onClick = {
-                // Exemplo: Navegar para a tela principal sem avatar
-                navController.navigate("main_screen")
+                // Voltar para a tela inicial, sem avatar
+                navController.navigate("Login")
             }
         ) {
             Text(text = "Continuar sem Avatar")
         }
     }
 }
+

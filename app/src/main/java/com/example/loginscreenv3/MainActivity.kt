@@ -16,10 +16,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LoginScreenV3Theme {
-                MyApp()
-
-            }
+            MyApp()
         }
     }
 }
@@ -28,15 +25,39 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     val navController = rememberNavController()
 
-    NavHost(navController=navController,startDestination = "Login"){
-
-        composable("Login"){
+    NavHost(navController = navController, startDestination = "Login") {
+        // Definindo a rota para a tela de login
+        composable("Login") {
             LoginScreen(navController = navController)
         }
 
+        // Definindo a rota para a tela de cadastro
         composable("CadastroScreen") {
             CadastroScreen(navController = navController)
         }
+
+        // Definindo a rota para a tela de desafio
+        composable("DesafioScreen") {
+            IconScreen(navController = navController)
+        }
+
+        // Definindo a rota para a tela DisplayAvatarScreen
+        composable("DisplayAvatarScreen") {
+            DisplayAvatarScreen(navController = navController)
+        }
+
+        composable("DesafioScreen") {
+            IconScreen(navController = navController)
+        }
+
+        composable("Desafio") {
+            DesafioScreen(navController = navController)
+        }
+
+        composable("Postagens") {
+            PostagensScreen(navController = navController) // Agora deve funcionar
+        }
+        // Outras telas podem ser adicionadas aqui da mesma forma
     }
 }
 

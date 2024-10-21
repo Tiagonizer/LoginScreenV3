@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,7 +50,7 @@ fun LoginScreen(navController: NavController) {
 
     var textFieldUsuario by remember { mutableStateOf("") }
     var textFieldSenha by remember { mutableStateOf("") }
-    var check by remember{ mutableStateOf(false) }
+    var check by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -101,26 +102,22 @@ fun LoginScreen(navController: NavController) {
 
         Row(modifier = Modifier
             .padding()
-            .fillMaxWidth(), horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically){
-            Box(modifier = Modifier.padding()){
-                Checkbox(checked = check, onCheckedChange ={check = it} )
+            .fillMaxWidth(), horizontalArrangement = Arrangement.Start, verticalAlignment = Alignment.CenterVertically) {
+            Box(modifier = Modifier.padding()) {
+                Checkbox(checked = check, onCheckedChange = { check = it })
             }
-            Box(modifier = Modifier.padding()){
+            Box(modifier = Modifier.padding()) {
                 Text(text = "Lembrar usuário", fontWeight = FontWeight.Medium)
             }
         }
 
-
         Spacer(modifier = Modifier.height(38.dp))
 
-        Row(modifier = Modifier.padding(10.dp),verticalAlignment = Alignment.CenterVertically) {
-            //Box(modifier = Modifier
-            //    .fillMaxWidth()
-            //    .padding(10.dp),
-            //    contentAlignment = Alignment.Center) {
+        Row(modifier = Modifier.padding(10.dp), verticalAlignment = Alignment.CenterVertically) {
+            // Entrar Button - Navega para DesafioScreen
             Button(modifier = Modifier.padding(10.dp), onClick = {
+                /* Lógica de login desativada
                 var usuariodb = Usuario()
-
                 usuariodb.validaUsuario(textFieldUsuario, textFieldSenha)
                     .addOnCompleteListener { querySnapshot ->
                         if (querySnapshot.isSuccessful) {
@@ -138,42 +135,24 @@ fun LoginScreen(navController: NavController) {
                             }else{
                                 Toast.makeText(context,"Usuario incorreto.",Toast.LENGTH_SHORT).show()
                             }
-
                         }
                     }
+                */
 
-
-
-//                if (textFieldUsuario==usuario){
-//                    //Toast.makeText(context, "Usuario correto.", Toast.LENGTH_SHORT).show()
-//                    if (textFieldSenha == senha) {
-//                        Toast.makeText(context, "Login bem sucedido.", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        Toast.makeText(context, "Login falhou.", Toast.LENGTH_SHORT).show()
-//                    }
-//                }else{
-//                    Toast.makeText(context, "Usuario incorreto.", Toast.LENGTH_SHORT).show()
-//                }
-
+                // Navega para a tela DesafioScreen
+                navController.navigate("DesafioScreen")
             }) {
                 Text(text = "Entrar")
             }
-            //}
 
-            //Box(modifier = Modifier
-            //    .fillMaxWidth()
-            //    .padding(10.dp),
-            //    contentAlignment = Alignment.Center){
-            Button(modifier = Modifier.padding(10.dp),onClick = {
-                val isClicked = true
-                if (isClicked) {
-                    navController.navigate("CadastroScreen")
-                }
+            Spacer(modifier = Modifier.width(16.dp))
 
+            // Cadastrar-se Button - Navega para CadastroScreen
+            Button(modifier = Modifier.padding(10.dp), onClick = {
+                navController.navigate("CadastroScreen")
             }) {
                 Text(text = "Cadastrar-se")
             }
-            //}
         }
     }
 }

@@ -253,7 +253,7 @@ fun CadastroScreen(navController: NavController) {
                 var mensagem = true
 
                 //scope.launch(Dispatchers.IO) {
-                if (senhaTextField != senhaConfirmTextField) {
+                /*if (senhaTextField != senhaConfirmTextField) {
                     mensagem = false
                     //scope.launch(Dispatchers.Main) {
                     Toast.makeText(
@@ -310,13 +310,13 @@ fun CadastroScreen(navController: NavController) {
                         context, "Idade precisa estar preechido.", Toast.LENGTH_SHORT
                     ).show()
                     //}
-                }
+                }*/
 
                 //}
 
                 //scope.launch(Dispatchers.Main) {
 
-                if (mensagem) {
+                /*if (mensagem) {
 
                     usuario.validaUsuario(emailTextField, "")
                         .addOnCompleteListener() { querySnapshot ->
@@ -333,16 +333,16 @@ fun CadastroScreen(navController: NavController) {
                             Toast.makeText(
                                 context, "Cadastrado com sucesso.", Toast.LENGTH_SHORT
                             ).show()
-                            navController.popBackStack()
+                            navController.navigate("display_avatar_screen")
 
 
                         }
 
-                }
+                }*/
 
 
                 //}
-
+                navController.navigate("displayAvatarScreen")
             })
             { Text("Cadastrar") }
         }
